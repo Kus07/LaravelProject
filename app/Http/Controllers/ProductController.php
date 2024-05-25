@@ -13,13 +13,13 @@ class ProductController extends Controller
         return view('index')->with('products',$products);
     }
 
-    public function productDetails($id)
-    {
-        $product = Product::find($id);
-        $product = Product::take(5)->get();
+    // public function productDetails($id)
+    // {
+    //     $product = Product::find($id);
+    //     $product = Product::take(5)->get();
 
-        return view('product_details')
-            ->with("product",$product)
-            ->with("products",$products);
-    }
+    //     return view('product_details')
+    //         ->with("product",$product)
+    //         ->with("products",$products);
+    // }
 }

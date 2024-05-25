@@ -2,7 +2,7 @@
 
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
-// echo "Brixter always botfrag";
+
 define('LARAVEL_START', microtime(true));
 
 /*

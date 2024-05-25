@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class PagesController extends Controller
 {
@@ -13,10 +15,18 @@ class PagesController extends Controller
 
     public function authenticate(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $email = $request->input('email');
+        $password = $request->input('password');
 
-        if (Auth::attempt($credentials)) {
+        // Verify the email and password against your user database
+        $user = User::where('email', $email)->first();
+
+        if ($user && Hash::check($password, $user->password)) {
             // Authentication successful
+            $request->session()->regenerate();
+            $request->session()->put('user_id', $user->id);
+            $request->session()->put('user_email', $user->email);
+
             return redirect()->intended('/dashboard');
         } else {
             // Authentication failed

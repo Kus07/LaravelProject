@@ -11,8 +11,8 @@
 
     <h2 class="text-center">Register User</h2>
     <br>
-    <form action="/create" method="post" class="form-group" style="width:70%; margin-left:15%;">
-        @csrf   
+    <form action="/register" method="post" class="form-group" style="width:70%; margin-left:15%;">
+        @csrf
         <label>Email:</label>
         <input type="text" class="form-control" placeholder="Enter Email" name="email" value="{{ session('email') }}"><br>
 

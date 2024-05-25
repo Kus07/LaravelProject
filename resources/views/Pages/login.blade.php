@@ -17,11 +17,11 @@
 
     <h2 class="text-center">Login</h2>
     <br>
-    <form action="{{ route('login') }}" method="post" class="form-group" style="width:70%; margin-left:15%;">
-        @csrf   
+    <form action="{{ route('authenticate') }}" method="post" class="form-group" style="width:70%; margin-left:15%;">
+        @csrf
         <label>Email:</label>
         <input type="text" class="form-control" placeholder="Enter Email" name="email" value="{{ old('email') }}"><br>
-        
+
         <label>Password:</label>
         <input type="password" class="form-control" placeholder="Enter Password" name="password" required><br>
 

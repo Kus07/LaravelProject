@@ -2,16 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     public function index()
     {
         $products = Product::all();
-        return view('index')->with('products',$products);
+        $products = Product::paginate(8);
+        return view('Pages/products', compact('products'));
     }
+
+    public function category($categoryId)
+    {
+        $products = Product::where('category_id', $categoryId)->paginate(8);
+        $category = Category::find($categoryId);
+        return view('Pages/categories', compact('products', 'category'));
+
+    }
+
+    public function myProducts()
 
     // public function productDetails($id)
     // {

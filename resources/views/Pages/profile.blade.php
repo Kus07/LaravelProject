@@ -52,7 +52,6 @@ use Illuminate\Support\Facades\Session;
 							<a class = 'btn btn-info' href="/dashboard">Home</a>
 					</nav>
 					<ul class="tools-nav">
-						<li class="login"><a href="{{ route('profile') }}">Profile</a></li>
                         <li class="login"><a href="{{ route('logout') }}">Logout</a></li>
 					</ul>
 				</div>
@@ -97,6 +96,7 @@ use Illuminate\Support\Facades\Session;
 
         <button type="submit" class="btn btn-primary">Submit</button><br>
     </form>
+    <br>
 
 </div>
 </div>

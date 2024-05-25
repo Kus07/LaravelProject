@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserInsertController;
@@ -24,3 +26,13 @@ Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::post('/editProfile', [ProfileController::class, 'editProfile'])->name('editProfile');
 
 Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
+
+Route::get('/product', [ProductController::class, 'index'])->name('product');
+Route::get('/productAdd', [ProductController::class, 'productAdd'])->name('product.show');
+
+Route::Post('/cartAdd', [CartController::class, 'index'])->name('cart.add');
+Route::get('/cartGet', [ProductController::class, 'index'])->name('cart.get');
+
+Route::get('/category/{id}', [ProductController::class, 'category'])->name('category');
+
+Route::get('/myProducts', [ProductController::class, 'addProducts'])->name('addProducts');

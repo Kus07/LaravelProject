@@ -13,17 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('firstName')->nullable();
-            $table->string('lastName')->nullable();
-            $table->string('shopName')->nullable();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->rememberToken();
+            $table->string('name');
             $table->timestamps();
         });
+
+        // Insert the categories
+        DB::table('categories')->insert([
+            ['name' => 'suits'],
+            ['name' => 'coats'],
+            ['name' => 'jackets'],
+            ['name' => 'shirts'],
+            ['name' => 'shoes'],
+        ]);
     }
 
     /**
@@ -33,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('categories');
     }
 };

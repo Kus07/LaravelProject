@@ -25,7 +25,7 @@
             <ul class="breadcrumbs">
                 <li><a href="/dashboard">Home</a></li>
                 <li>
-                    Products
+                    {{$category->name}}
                 </li>
             </ul>
         </div>
@@ -55,10 +55,6 @@
             <form class="form-sort" action="#">
                 <fieldset>
                     <div class="row">
-                        <a class = 'btn btn-info' href="/addProducts">Add Products</a>
-                    </div>
-
-                    <div class="row">
                         <label for="sort">Sort by:</label>
                         <select id="sort">
                             <option>price</option>
@@ -72,7 +68,6 @@
                             <option>8</option>
                         </select>
                     </div>
-
                 </fieldset>
             </form>
         </div>

@@ -24,6 +24,11 @@ class ProductController extends Controller
     }
 
     public function myProducts()
+    {
+        $userId = session('user_id');
+        $products = Product::where('user_id', $userId)->paginate(8);
+        return view('Pages/myProducts', compact('products'));
+    }
 
     // public function productDetails($id)
     // {

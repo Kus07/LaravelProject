@@ -25,7 +25,7 @@
             <ul class="breadcrumbs">
                 <li><a href="/dashboard">Home</a></li>
                 <li>
-                    Products
+                    My Products
                 </li>
             </ul>
         </div>
@@ -55,7 +55,7 @@
             <form class="form-sort" action="#">
                 <fieldset>
                     <div class="row">
-                        <a class = 'btn btn-info' href="/myProducts">My Products</a>
+                        <a class = 'btn btn-info' href="/myProducts">Add Products</a>
                     </div>
 
                     <div class="row">

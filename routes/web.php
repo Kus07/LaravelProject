@@ -35,4 +35,4 @@ Route::get('/cartGet', [ProductController::class, 'index'])->name('cart.get');
 
 Route::get('/category/{id}', [ProductController::class, 'category'])->name('category');
 
-Route::get('/myProducts', [ProductController::class, 'addProducts'])->name('addProducts');
+Route::get('/myProducts', [ProductController::class, 'myProducts'])->name('myProducts');

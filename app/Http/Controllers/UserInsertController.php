@@ -15,17 +15,28 @@ class UserInsertController extends Controller
     
         return view('Pages/login', ['registeredUsername' => $registeredUsername]);
     }   
+
     public function insert(Request $request)
     {
-        $username = $request->input('username');
         $email = $request->input('email');
         $password = $request->input('password');
-        $data=array('username'=>$username,'email'=>$email,"password"=>$password);
+        $passwordConfirmation = $request->input('password_confirmation');
+
+        // Check if passwords match
+        if ($password !== $passwordConfirmation) {
+            return redirect()->back()->with(['error' => 'Passwords do not match.', 'email' => $email]);
+        }
+
+        // Hash the password
+        $hashedPassword = bcrypt($password);
+
+        $data = array(
+            'email' => $email,
+            'password' => $hashedPassword,
+        );
+
         DB::table('users')->insert($data);
 
-        session(['registered_username' => $username]);
-        
-        echo "Record inserted successfully.<br/>";
-        echo '<a href = "/insert">Click Here</a> to go back.';
+        return redirect()->route('login')->with('success', 'User registered successfully. You may now log in.');
     }
 }

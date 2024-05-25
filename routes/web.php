@@ -21,6 +21,6 @@ Route::get('/contact', [PagesController::class, 'contact'])->name('contact');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-Route::get('/editProfile', [ProfileController::class, 'editProfile'])->name('editProfile');
+Route::post('/editProfile', [ProfileController::class, 'editProfile'])->name('editProfile');
 
 Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');

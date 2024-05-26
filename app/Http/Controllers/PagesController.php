@@ -18,7 +18,6 @@ class PagesController extends Controller
         $email = $request->input('email');
         $password = $request->input('password');
 
-        // Verify the email and password against your user database
         $user = User::where('email', $email)->first();
 
         if ($user && Hash::check($password, $user->password)) {

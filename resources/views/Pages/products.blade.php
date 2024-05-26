@@ -1,24 +1,6 @@
 <x-dashboardNavbar />
 
 <div class="container mt-4">
-    @if(session('success'))
-        <div class="alert alert-success" role="alert">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if(session('error'))
-        <div class="alert alert-danger" role="alert">
-            {{ session('error') }}
-        </div>
-    @endif
-
-    @if (!$errors->isEmpty())
-        <div class="alert alert-danger" style="border-radius: 0;" role="alert">
-            {{ $errors->first() }}
-        </div>
-    @endif
-
 
     <section class="bar">
         <div class="bar-frame">
@@ -77,16 +59,34 @@
             </form>
         </div>
 
+
         <ul class="item-list">
+            @if(session('success'))
+        <div style="color:green" class="alert alert-success" role="alert">
+            <br>{{ session('success') }}
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div style="color:red" class="alert alert-danger" role="alert">
+            <br>{{ session('error') }}
+        </div>
+    @endif
+
+    @if (!$errors->isEmpty())
+        <div style="color:red" class="alert alert-danger" style="border-radius: 0;" role="alert">
+            <br>{{ $errors->first() }}
+        </div>
+    @endif
             @foreach ($products as $product)
             <li>
                 <div class="item">
                     <div style="height:320px"class="image">
-                        <img src="{{ $product->productImage }}" alt="{{ $product->productName }}" />
+                        <img src="{{ asset($product->productImage) }}" alt="{{ $product->productName }}">
                         <div class="hover">
                             <div class="item-content">
-                                <a href="{{ route('cart.add', $product->id) }}" class="btn white normal">Add to cart</a>
-                                <a href="{{ route('product.show', $product->id) }}" class="btn white normal">See details</a>
+                                <a href="{{ route('cartAdd', $product->id) }}" class="btn white normal">Add to cart</a>
+                                <a href="{{ route('productDetails', $product->id) }}" class="btn white normal">See details</a>
                             </div>
                             <span class="bg"></span>
                         </div>

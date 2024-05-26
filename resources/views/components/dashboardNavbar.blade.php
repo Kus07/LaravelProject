@@ -34,6 +34,7 @@ use Illuminate\Support\Facades\Session;
 	<!--[if lt IE 9]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
+
 </head>
 <body>
 	<div id="wrapper">
@@ -56,7 +57,7 @@ use Illuminate\Support\Facades\Session;
 						</ul>
 					</nav>
 					<ul class="tools-nav">
-						<li class="items"><a href="/product"><span>2</span> Items, <strong>$599.00</strong></a></li>
+						<li class="items"><a href="/cart"><span>2</span> Items, <strong>$599.00</strong></a></li>
 						<li class="login"><a href="{{ route('profile') }}">Profile</a></li>
 					</ul>
 				</div>

@@ -56,7 +56,7 @@ use Illuminate\Support\Facades\Session;
 						</ul>
 					</nav>
 					<ul class="tools-nav">
-						<li class="items"><a href="/product"><span>2</span> Items, <strong>$599.00</strong></a></li>
+						<li class="items"><a href="/cart"><span>2</span> Items, <strong>$599.00</strong></a></li>
 						<li class="login"><a href="{{ route('profile') }}">Profile</a></li>
 					</ul>
 				</div>
@@ -80,7 +80,7 @@ use Illuminate\Support\Facades\Session;
 							<div class="slide-info">
 								<h1>collection for real gentlemen</h1>
 								<p>Introducing the curated selection of premium products designed for the discerning modern man. This collection embodies the timeless elegance and refined sophistication that defines the true gentleman.</p>
-								<a class="btn white big" href="#">See the collection</a>
+								<a class="btn white big" href="/product">See the collection</a>
 							</div>
 						</div>
 					</li>

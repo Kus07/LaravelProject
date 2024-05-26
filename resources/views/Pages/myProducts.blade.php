@@ -55,7 +55,7 @@
             <form class="form-sort" action="#">
                 <fieldset>
                     <div class="row">
-                        <a class = 'btn btn-info' href="/myProducts">Add Products</a>
+                        <a class = 'btn btn-info' href="/addedProducts">Add Products</a>
                     </div>
 
                     <div class="row">
@@ -81,12 +81,12 @@
             @foreach ($products as $product)
             <li>
                 <div class="item">
-                    <div style="height:320px"class="image">
-                        <img src="{{ $product->productImage }}" alt="{{ $product->productName }}" />
+                    <div style="height:300px"class="image">
+                        <img src="{{ asset($product->productImage) }}" alt="{{ $product->productName }}">
                         <div class="hover">
                             <div class="item-content">
-                                <a href="{{ route('cart.add', $product->id) }}" class="btn white normal">Add to cart</a>
-                                <a href="{{ route('product.show', $product->id) }}" class="btn white normal">See details</a>
+                                <a href="{{ route('editProducts', $product->id) }}" class="btn white normal">Edit Product</a>
+                                <a href="{{ route('productDetails', $product->id) }}" class="btn white normal">See details</a>
                             </div>
                             <span class="bg"></span>
                         </div>

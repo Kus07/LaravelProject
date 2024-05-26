@@ -28,11 +28,20 @@ Route::post('/editProfile', [ProfileController::class, 'editProfile'])->name('ed
 Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 Route::get('/product', [ProductController::class, 'index'])->name('product');
-Route::get('/productAdd', [ProductController::class, 'productAdd'])->name('product.show');
+Route::get('/product/{id}', [ProductController::class, 'productDetails'])->name('productDetails');
 
-Route::Post('/cartAdd', [CartController::class, 'index'])->name('cart.add');
-Route::get('/cartGet', [ProductController::class, 'index'])->name('cart.get');
+Route::match(['get', 'post'], '/cartAdd/{product}', [CartController::class, 'cartAdd'])->name('cartAdd');
+
 
 Route::get('/category/{id}', [ProductController::class, 'category'])->name('category');
 
 Route::get('/myProducts', [ProductController::class, 'myProducts'])->name('myProducts');
+
+Route::get('/editProducts', [ProductController::class, 'editProducts'])->name('editProducts');
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart');
+
+Route::Post('/addProducts', [ProductController::class, 'addProducts'])->name('addProducts');
+
+Route::get('/addedProducts', [ProductController::class, 'addedProducts'])->name('addedProducts');
+

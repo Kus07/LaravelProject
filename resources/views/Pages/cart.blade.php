@@ -12,31 +12,33 @@
         </section>
         <section id="main">
             <ul class="list-table">
-                <li>
-                    <div class="rows rows-item">
-                        <img src="{{ asset('storage/' . $cartItem->product->productImage) }}" height="99" width="99" alt="{{ $cartItem->product->productName }}">
-                        <h3>{{ $cartItem->product->productName }}</h3>
-                        <p>{{ $cartItem->product->productDescription }}</p>
-                    </div>
-                    <div class="rows-holder">
-                        <div class="rows rows-select">
-                            <div class="row">
-                                <label for="quantity">Quantity:</label>
-                                <select id="quantity">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="rows rows-price">
-                            <span>${{ $cartItem->product->price }}</span>
-                        </div>
-                        <div class="rows rows-delete">
-                            <a class="btn-delete" href="#">delete</a>
-                        </div>
-                    </div>
-                </li>
+                @foreach ($cartItems as $cartItem)
+<li>
+    <div class="rows rows-item">
+        <img src="{{ asset('storage/' . $cartItem->product->image) }}" height="99" width="99" alt="{{ $cartItem->product->name }}">
+        <h3>{{ $cartItem->product->productName }}</h3>
+    </div>
+    <div class="rows-holder">
+        <div class="rows rows-select">
+            <div class="row">
+                <label for="quantity">Quantity:</label>
+                <select id="quantity">
+                    <option>{{ $cartItem->quantity }}</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select>
+            </div>
+        </div>
+        <div class="rows rows-price">
+            <span>${{ $cartItem->product->price }}</span>
+        </div>
+        <div class="rows rows-delete">
+            <a class="btn-delete" href="#">delete</a>
+        </div>
+    </div>
+</li>
+@endforeach
             </ul>
             <form action="#" class="form-payment">
                 <fieldset>

@@ -41,7 +41,8 @@ Route::get('/editProducts', [ProductController::class, 'editProducts'])->name('e
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 
-Route::Post('/addProducts', [ProductController::class, 'addProducts'])->name('addProducts');
+Route::post('/addProducts', [ProductController::class, 'addProducts'])->name('addProducts');
 
 Route::get('/addedProducts', [ProductController::class, 'addedProducts'])->name('addedProducts');
 
+Route::post('/cartRemove/{cartItem}', [CartController::class, 'cartRemove'])->name('cartRemove');

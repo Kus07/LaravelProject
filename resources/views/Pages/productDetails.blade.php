@@ -12,6 +12,23 @@
     </div>
 </section>
 <br>
+@if(session('success'))
+        <div style="color:green" class="alert alert-success" role="alert">
+            <br>{{ session('success') }} <br>
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div style="color:red" class="alert alert-danger" role="alert">
+            <br>{{ session('error') }} <br>
+        </div>
+    @endif
+
+    @if (!$errors->isEmpty())
+        <div style="color:red" class="alert alert-danger" style="border-radius: 0;" role="alert">
+            <br>{{ $errors->first() }} <br>
+        </div>
+    @endif
 <section id="main">
     <div class="details-info">
         <div class="image">
@@ -20,6 +37,7 @@
         <div class="description">
             <div class="head">
                 <h1 class="title">{{ $product->productName }}</h1>
+                <p>${{ $product->productDescription }}</p><br>
                 <h2>${{ $product->price }}</h2>
             </div>
             <div class="section">

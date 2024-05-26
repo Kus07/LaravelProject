@@ -56,7 +56,11 @@ use Illuminate\Support\Facades\Session;
 						</ul>
 					</nav>
 					<ul class="tools-nav">
-						<li class="items"><a href="/cart"><span>2</span> Items, <strong>$599.00</strong></a></li>
+						<li class="items">
+                            <a href="{{ route('cart') }}">
+                                <span>{{ session('cart_total_count', 0) }}</span> Items, <strong>${{ number_format(session('cart_total_price', 0), 2) }}</strong>
+                            </a>
+                        </li>
 						<li class="login"><a href="{{ route('profile') }}">Profile</a></li>
 					</ul>
 				</div>

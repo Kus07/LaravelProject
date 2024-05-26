@@ -5,7 +5,8 @@
         <section class="bar">
             <div class="bar-frame">
                 <ul class="breadcrumbs">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="/dashboard">Home</a></li>
+                    <li><a href="javascript:history.back()">Back</a></li>
                     <li>Cart</li>
                 </ul>
             </div>
@@ -15,7 +16,8 @@
                 @foreach ($cartItems as $cartItem)
 <li>
     <div class="rows rows-item">
-        <img src="{{ asset('storage/' . $cartItem->product->image) }}" height="99" width="99" alt="{{ $cartItem->product->name }}">
+
+        <img src="{{ asset($cartItem->product->productImage) }}" alt="{{ $cartItem->product->productName }}" height="99" width="99" alt="{{ $cartItem->product->name }}">
         <h3>{{ $cartItem->product->productName }}</h3>
     </div>
     <div class="rows-holder">
@@ -34,7 +36,10 @@
             <span>${{ $cartItem->product->price }}</span>
         </div>
         <div class="rows rows-delete">
-            <a class="btn-delete" href="#">delete</a>
+            <form action="{{ route('cartRemove', $cartItem) }}" method="POST">
+                @csrf
+                <button type="submit" class="btn-delete">delete</button>
+            </form>
         </div>
     </div>
 </li>
@@ -82,7 +87,7 @@
                             </li>
                             <li class="visa">
                                 <div class="pay-holder">
-                                    <p>MasterCard</p>
+                                    <p>Visa</p>
                                 </div>
                                 <input type="radio" name="pay" value="visa" />
                             </li>

@@ -8,32 +8,49 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
-        $products = Product::paginate(8);
-        return view('Pages/products', compact('products'));
+        if ($request->session()->has('user_email')) {
+            $userEmail = $request->session()->get('user_email');
+            $products = Product::paginate(8);
+            return view('Pages/products', compact('userEmail', 'products'));
+        } else {
+            return redirect()->route('login')->with('error', 'Please log in to access the products page.');
+        }
     }
 
-    public function category($categoryId)
+    public function category(Request $request, $categoryId)
     {
-        $products = Product::where('category_id', $categoryId)->paginate(8);
-        $category = Category::find($categoryId);
-        return view('Pages/categories', compact('products', 'category'));
-
+        if ($request->session()->has('user_email')) {
+            $userEmail = $request->session()->get('user_email');
+            $products = Product::where('category_id', $categoryId)->paginate(8);
+            $category = Category::find($categoryId);
+            return view('Pages/categories', compact('userEmail', 'products', 'category'));
+        } else {
+            return redirect()->route('login')->with('error', 'Please log in to access the category page.');
+        }
     }
 
-    public function myProducts()
+    public function myProducts(Request $request)
     {
-        $userId = session('user_id');
-        $products = Product::where('user_id', $userId)->paginate(8);
-        return view('Pages/myProducts', compact('products'));
+        if ($request->session()->has('user_email')) {
+            $userId = $request->session()->get('user_id');
+            $products = Product::where('user_id', $userId)->paginate(8);
+            return view('Pages/myProducts', compact('products'));
+        } else {
+            return redirect()->route('login')->with('error', 'Please log in to access your products.');
+        }
     }
 
-    public function productDetails($id)
+    public function productDetails(Request $request, $id)
     {
-        $product = Product::findOrFail($id);
-        return view('Pages/productDetails', compact('product'));
+        if ($request->session()->has('user_email')) {
+            $userEmail = $request->session()->get('user_email');
+            $product = Product::findOrFail($id);
+            return view('Pages/productDetails', compact('userEmail', 'product'));
+        } else {
+            return redirect()->route('login')->with('error', 'Please log in to view the product details.');
+        }
     }
 
     public function editProducts()

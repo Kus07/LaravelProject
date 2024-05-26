@@ -32,6 +32,11 @@ class UserInsertController extends Controller
             return redirect()->back()->with(['error' => 'The email address is already registered.', 'email' => $email]);
         }
 
+        // Validate the email format
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return redirect()->back()->with(['error' => 'The email address is not valid.', 'email' => $email]);
+        }
+
         // Hash the password
         $hashedPassword = bcrypt($password);
 

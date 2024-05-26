@@ -53,52 +53,66 @@ class ProductController extends Controller
         }
     }
 
-    public function editProducts()
+    public function editProducts(Request $request)
     {
-        return view('Pages/editProducts');
+        if ($request->session()->has('user_email')) {
+            $userEmail = $request->session()->get('user_email');
+            return view('Pages/editProducts', compact('userEmail'));
+        } else {
+            return redirect()->route('login')->with('error', 'Please log in to edit your products.');
+        }
     }
 
-    public function addedProducts()
+    public function addedProducts(Request $request)
     {
-        return view('Pages/addProducts');
+        if ($request->session()->has('user_email')) {
+            $userEmail = $request->session()->get('user_email');
+            return view('Pages/addProducts', compact('userEmail'));
+        } else {
+            return redirect()->route('login')->with('error', 'Please log in to add new products.');
+        }
     }
 
     public function addProducts(Request $request)
     {
-        // Validate the input data
-        $validatedData = $request->validate([
-            'productName' => 'required|string|max:255',
-            'productDescription' => 'required|string',
-            'quantity' => 'required|integer|min:1',
-            'price' => 'required|numeric|min:0.01',
-            'category_id' => 'required|integer|exists:categories,id',
-            'productImage' => 'required|image|max:2048',
-        ]);
+        if ($request->session()->has('user_email')) {
+            // Validate the input data
+            $validatedData = $request->validate([
+                'productName' => 'required|string|max:255',
+                'productDescription' => 'required|string',
+                'quantity' => 'required|integer|min:1',
+                'price' => 'required|numeric|min:0.01',
+                'category_id' => 'required|integer|exists:categories,id',
+                'productImage' => 'required|image|max:2048',
+            ]);
 
-        // Save the product data
-        $product = new Product();
-        $product->user_id = $request->session()->get('user_id');
-        $product->productName = $validatedData['productName'];
-        $product->productDescription = $validatedData['productDescription'];
-        $product->quantity = $validatedData['quantity'];
-        $product->price = $validatedData['price'];
-        $product->category_id = $validatedData['category_id'];
+            // Save the product data
+            $product = new Product();
+            $product->user_id = $request->session()->get('user_id');
+            $product->productName = $validatedData['productName'];
+            $product->productDescription = $validatedData['productDescription'];
+            $product->quantity = $validatedData['quantity'];
+            $product->price = $validatedData['price'];
+            $product->category_id = $validatedData['category_id'];
 
-        // Handle the product image upload
-        if ($request->hasFile('productImage')) {
-            $imageName = time() . '.' . $request->file('productImage')->extension();
-            $imagePath = $request->file('productImage')->move(public_path('product_images'), $imageName);
-            $product->productImage = '/product_images/' . $imageName;
-        }
+            // Handle the product image upload
+            if ($request->hasFile('productImage')) {
+                $imageName = time() . '.' . $request->file('productImage')->extension();
+                $imagePath = $request->file('productImage')->move(public_path('product_images'), $imageName);
+                $product->productImage = '/product_images/' . $imageName;
+            }
 
-        if ($product->save()) {
-            // Clear the session data
-            $request->session()->forget('product_data');
-            return redirect()->route('addedProducts')->with('success', 'Product added successfully.');
+            if ($product->save()) {
+                // Clear the session data
+                $request->session()->forget('product_data');
+                return redirect()->route('addedProducts')->with('success', 'Product added successfully.');
+            } else {
+                // Store the user's input in the session
+                $request->session()->put('product_data', $request->all());
+                return redirect()->back()->with('error', 'Failed to add product.');
+            }
         } else {
-            // Store the user's input in the session
-            $request->session()->put('product_data', $request->all());
-            return redirect()->back()->with('error', 'Failed to add product.');
+            return redirect()->route('login')->with('error', 'Please log in to add new products.');
         }
     }
 }

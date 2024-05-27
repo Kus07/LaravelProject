@@ -14,6 +14,17 @@
     </section>
     <section id="main">
         <div class="top-bar">
+            <form class="form-sort" action="{{ route('search') }}" method="Get">
+                <fieldset>
+                    <div class="row" style="padding-left: 100px">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="search" placeholder="Search products..." aria-label="Search">
+                                <button class="btn btn-primary" type="submit">Search</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
             <ul class="paging">
                 @if ($products->currentPage() > 1)
                 <li class="prev"><a href="{{ $products->previousPageUrl() }}">prev</a></li>
@@ -34,33 +45,19 @@
                 @endif
             </ul>
 
-            <form class="form-sort" action="#">
+            <form class="form-sort" action="" method="GET">
                 <fieldset>
                     <div class="row">
-                        <a class = 'btn btn-info' href="/myProducts">My Products</a>
+                        <a class="btn btn-info" href="/myProducts">My Products</a>
                     </div>
-
-                    <div class="row">
-                        <label for="sort">Sort by:</label>
-                        <select id="sort">
-                            <option>price</option>
-                            <option>price</option>
-                        </select>
-                    </div>
-                    <div class="row">
-                        <label for="page">Products per page:</label>
-                        <select id="page">
-                            <option>8</option>
-                            <option>8</option>
-                        </select>
-                    </div>
-
                 </fieldset>
             </form>
+
+
         </div>
 
-
         <ul class="item-list">
+
             @if(session('success'))
         <div style="color:green" class="alert alert-success" role="alert">
             <br>{{ session('success') }}

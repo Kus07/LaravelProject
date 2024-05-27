@@ -49,3 +49,5 @@ Route::get('/addedProducts', [ProductController::class, 'addedProducts'])->name(
 Route::post('/cartRemove/{cartItem}', [CartController::class, 'cartRemove'])->name('cartRemove');
 
 Route::post('/addOrder', [OrderController::class, 'addOrder'])->name('addOrder');
+
+Route::get('/search', [ProductController::class, 'search'])->name('search');

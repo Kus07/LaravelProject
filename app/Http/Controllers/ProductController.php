@@ -12,7 +12,7 @@ class ProductController extends Controller
     {
         if ($request->session()->has('user_email')) {
             $userEmail = $request->session()->get('user_email');
-            $products = Product::paginate(8);
+            $products = Product::where('quantity', '>', 0)->paginate(8);
             return view('Pages/products', compact('userEmail', 'products'));
         } else {
             return redirect()->route('login')->with('error', 'Please log in to access the products page.');
@@ -23,7 +23,9 @@ class ProductController extends Controller
     {
         if ($request->session()->has('user_email')) {
             $userEmail = $request->session()->get('user_email');
-            $products = Product::where('category_id', $categoryId)->paginate(8);
+            $products = Product::where('category_id', $categoryId)
+                        ->where('quantity', '>', 0)
+                        ->paginate(8);
             $category = Category::find($categoryId);
             return view('Pages/categories', compact('userEmail', 'products', 'category'));
         } else {
@@ -113,6 +115,27 @@ class ProductController extends Controller
             }
         } else {
             return redirect()->route('login')->with('error', 'Please log in to add new products.');
+        }
+    }
+
+    public function search(Request $request)
+    {
+        if ($request->session()->has('user_email')) {
+            $userEmail = $request->session()->get('user_email');
+
+            // Get the search and page options from the request
+            $search = $request->input('search');
+            $perPage = $request->input('page', 8);
+
+            // Query the products with the search and pagination options
+            $products = Product::where('quantity', '>', 0)
+                             ->where('productName', 'like', '%' . $search . '%')
+                             ->paginate($perPage);
+
+            // Pass the search, products, and page options to the view
+            return view('Pages/products', compact('userEmail', 'products', 'search', 'perPage'));
+        } else {
+            return redirect()->route('login')->with('error', 'Please log in to access the products page.');
         }
     }
 }

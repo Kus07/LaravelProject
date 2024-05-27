@@ -37,7 +37,8 @@
         <div class="description">
             <div class="head">
                 <h1 class="title">{{ $product->productName }}</h1>
-                <p>${{ $product->productDescription }}</p><br>
+                <p>{{ $product->productDescription }}</p><br>
+                <p>Available left: {{ $product->quantity }}</p><br>
                 <h2>${{ $product->price }}</h2>
             </div>
             <div class="section">
@@ -47,9 +48,9 @@
                         <div class="row">
                             <label for="quantity">Quantity:</label>
                             <select id="quantity" name="quantity">
-                                @for ($i = 1; $i <= 4; $i++)
-                                <option value="{{ $i }}">{{ $i }}</option>
-                                @endfor
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
                             </select>
                         </div>
                         <button type="submit" class="btn black normal">Add to cart</button>

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ProductController;
@@ -46,3 +47,5 @@ Route::post('/addProducts', [ProductController::class, 'addProducts'])->name('ad
 Route::get('/addedProducts', [ProductController::class, 'addedProducts'])->name('addedProducts');
 
 Route::post('/cartRemove/{cartItem}', [CartController::class, 'cartRemove'])->name('cartRemove');
+
+Route::post('/addOrder', [OrderController::class, 'addOrder'])->name('addOrder');

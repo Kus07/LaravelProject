@@ -33,11 +33,18 @@ class CartController extends Controller
                 return redirect()->back()->with('error', 'You cannot add your own product to the cart.');
             }
 
+            $requestedQuantity = $request->input('quantity', 1);
+
+            // Check if the requested quantity is available
+            if ($requestedQuantity > $product->quantity) {
+                return redirect()->back()->with('error', 'The requested quantity is not available.');
+            }
+
             $cartItem = new Cart();
             $cartItem->user_id = $userId;
             $cartItem->product_id = $product->id;
             $cartItem->price = $product->price;
-            $cartItem->quantity = $request->input('quantity', 1); // Use the submitted quantity or default to 1
+            $cartItem->quantity = $requestedQuantity;
             $cartItem->save();
 
             // Update the cart total count and total price in the session

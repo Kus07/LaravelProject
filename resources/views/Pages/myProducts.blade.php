@@ -58,20 +58,7 @@
                         <a class = 'btn btn-info' href="/addedProducts">Add Products</a>
                     </div>
 
-                    <div class="row">
-                        <label for="sort">Sort by:</label>
-                        <select id="sort">
-                            <option>price</option>
-                            <option>price</option>
-                        </select>
-                    </div>
-                    <div class="row">
-                        <label for="page">Products per page:</label>
-                        <select id="page">
-                            <option>8</option>
-                            <option>8</option>
-                        </select>
-                    </div>
+
 
                 </fieldset>
             </form>
@@ -81,7 +68,7 @@
             @foreach ($products as $product)
             <li>
                 <div class="item">
-                    <div style="height:300px"class="image">
+                    <div style="height:320px; overflow:hidden"class="image">
                         <img src="{{ asset($product->productImage) }}" alt="{{ $product->productName }}">
                         <div class="hover">
                             <div class="item-content">

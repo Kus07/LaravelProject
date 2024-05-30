@@ -39,6 +39,7 @@ class UserInsertController extends Controller
         $data = array(
             'email' => $email,
             'password' => $hashedPassword,
+            'role' => 'user',
         );
 
         DB::table('users')->insert($data);

@@ -36,7 +36,12 @@
         </div>
         <div class="description">
             <div class="head">
-                <h1 class="title">{{ $product->productName }}</h1>
+                <h1 class="title">
+                    {{ $product->productName }}
+                    @if ($product->user_id == session('user_id'))
+                        - ({{ $product->status }})
+                    @endif
+                </h1>
                 <p>{{ $product->productDescription }}</p><br>
                 <p>Available left: {{ $product->quantity }}</p><br>
                 <h2>${{ $product->price }}</h2>
@@ -47,11 +52,7 @@
                     <fieldset>
                         <div class="row">
                             <label for="quantity">Quantity:</label>
-                            <select id="quantity" name="quantity">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                            </select>
+                            <input style="height: 30px; padding-left: 20px" type="number" id="quantity" name="quantity" min="1" max="{{ $product->quantity }}" value="1">
                         </div>
                         <button type="submit" class="btn black normal">Add to cart</button>
                     </fieldset>

@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->integer('quantity');
             $table->string('productImage');
+            $table->string('status');
             $table->timestamps();
 
         });

@@ -25,7 +25,6 @@ class ProfileController extends Controller
             $user = User::find($userId);
 
             if ($request->isMethod('post')) {
-                // Validate the form input
                 $validatedData = $request->validate([
                     'email' => 'required|email|unique:users,email,' . $userId,
                     'firstName' => 'nullable',
@@ -36,14 +35,12 @@ class ProfileController extends Controller
                     'email.email' => 'The email must be a valid email address.',
                 ]);
 
-                // Update the user information
                 $user->email = $validatedData['email'];
                 $user->firstName = $validatedData['firstName'];
                 $user->lastName = $validatedData['lastName'];
                 $user->shopName = $validatedData['shopName'];
                 $user->save();
 
-                // Redirect or return a response
                 return redirect()->route('profile')->with('success', 'Profile updated successfully.');
             }
 

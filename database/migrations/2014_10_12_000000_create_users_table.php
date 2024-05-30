@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('firstName')->nullable();
             $table->string('lastName')->nullable();
             $table->string('shopName')->nullable();
+            $table->string('role')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

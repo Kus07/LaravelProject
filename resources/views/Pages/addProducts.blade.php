@@ -48,7 +48,7 @@ use Illuminate\Support\Facades\Session;
 
         <div class="form-group">
             <label for="productDescription">Product Description:</label>
-            <input type="text" class="form-control" id="productDescription" name="productDescription" value="{{ session('addProductDescription') }}" required>
+            <textarea type="text" class="form-control" id="productDescription" name="productDescription" value="{{ session('addProductDescription') }}" required></textarea>
         </div>
 
         <div class="form-row">

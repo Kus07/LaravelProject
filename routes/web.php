@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\LogoutController;
@@ -38,7 +39,6 @@ Route::get('/category/{id}', [ProductController::class, 'category'])->name('cate
 
 Route::get('/myProducts', [ProductController::class, 'myProducts'])->name('myProducts');
 
-Route::get('/editProducts', [ProductController::class, 'editProducts'])->name('editProducts');
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 
@@ -48,6 +48,15 @@ Route::get('/addedProducts', [ProductController::class, 'addedProducts'])->name(
 
 Route::post('/cartRemove/{cartItem}', [CartController::class, 'cartRemove'])->name('cartRemove');
 
+Route::get('/products/{id}/edit', [ProductController::class, 'editProducts'])->name('editProducts');
+Route::post('/products/{id}', [ProductController::class, 'updateProducts'])->name('updateProducts');
+
 Route::post('/addOrder', [OrderController::class, 'addOrder'])->name('addOrder');
 
 Route::get('/search', [ProductController::class, 'search'])->name('search');
+
+Route::get('/adminPage', [AdminController::class, 'index'])->name('adminPage');
+
+Route::get('/approveProduct/{id}', [AdminController::class, 'approveProduct'])->name('approveProduct');
+
+Route::get('/denyProduct/{id}', [AdminController::class, 'denyProduct'])->name('denyProduct');

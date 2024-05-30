@@ -26,17 +26,24 @@ class PagesController extends Controller
             $request->session()->put('user_id', $user->id);
             $request->session()->put('user_email', $user->email);
 
-            $cartItems = Cart::where('user_id', $user->id)->get();
+            if ($user->role === 'admin') {
+                return redirect()->route('adminPage');
+            }
 
-            $totalCount = $cartItems->count();
-            $totalPrice = $cartItems->sum('price');
+            $cartItems = Cart::where('user_id', $user->id)->get();
+            $totalCount = 0;
+            $totalPrice = 0;
+
+            foreach ($cartItems as $item) {
+                $totalCount += $item->quantity;
+                $totalPrice += $item->quantity * $item->price;
+            }
 
             $request->session()->put('cart_total_count', $totalCount);
             $request->session()->put('cart_total_price', $totalPrice);
 
             return redirect()->intended('/dashboard');
         } else {
-            // Authentication failed
             return redirect()->back()->withInput($request->only('email'))->with('error', 'Invalid email or password.');
         }
     }

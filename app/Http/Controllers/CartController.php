@@ -35,7 +35,6 @@ class CartController extends Controller
 
             $requestedQuantity = $request->input('quantity', 1);
 
-            // Check if the requested quantity is available
             if ($requestedQuantity > $product->quantity) {
                 return redirect()->back()->with('error', 'The requested quantity is not available.');
             }
@@ -47,15 +46,18 @@ class CartController extends Controller
             $cartItem->quantity = $requestedQuantity;
             $cartItem->save();
 
-            // Update the cart total count and total price in the session
             $cartItems = Cart::where('user_id', $userId)->get();
-            $totalCount = $cartItems->count();
-            $totalPrice = $cartItems->sum('price');
+            $totalCount = 0;
+            $totalPrice = 0;
+
+            foreach ($cartItems as $item) {
+                $totalCount += $item->quantity;
+                $totalPrice += $item->quantity * $item->price;
+            }
 
             $request->session()->put('cart_total_count', $totalCount);
             $request->session()->put('cart_total_price', $totalPrice);
 
-            // Redirect or return a response
             return redirect()->route('cart')->with('success', 'Product added to cart!');
         } else {
             return redirect()->route('login')->with('error', 'Please log in to add products to the cart.');
@@ -65,21 +67,22 @@ class CartController extends Controller
     public function cartRemove(Request $request, Cart $cartItem)
     {
         if ($request->session()->has('user_email')) {
-            // Get the user ID from the session
             $userId = $request->session()->get('user_id');
 
-            // Check if the cart item belongs to the current user
             if ($cartItem->user_id !== $userId) {
                 return redirect()->route('cart')->with('error', 'You are not authorized to remove this item from the cart.');
             }
 
-            // Delete the cart item
             $cartItem->delete();
 
-            // Update the cart total count and total price in the session
             $cartItems = Cart::where('user_id', $userId)->get();
-            $totalCount = $cartItems->count();
-            $totalPrice = $cartItems->sum('price');
+            $totalCount = 0;
+            $totalPrice = 0;
+
+            foreach ($cartItems as $item) {
+                $totalCount += $item->quantity;
+                $totalPrice += $item->quantity * $item->price;
+            }
 
             $request->session()->put('cart_total_count', $totalCount);
             $request->session()->put('cart_total_price', $totalPrice);

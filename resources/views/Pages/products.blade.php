@@ -78,7 +78,7 @@
             @foreach ($products as $product)
             <li>
                 <div class="item">
-                    <div style="height:320px"class="image">
+                    <div style="height:320px; overflow:hidden"class="image">
                         <img src="{{ asset($product->productImage) }}" alt="{{ $product->productName }}">
                         <div class="hover">
                             <div class="item-content">

@@ -14,7 +14,7 @@
         <li>Phone: {{ $phone }}</li>
         <li>Email: {{ $email }}</li>
         <li>Payment Mode: {{ $paymentMode }}</li>
-        <li>Total Price: {{ $totalPrice }}</li>
+        <li>Total Price: ${{ $totalPrice }}</li>
     </ul>
 
     <p>Best regards,<br>

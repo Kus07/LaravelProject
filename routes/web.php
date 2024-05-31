@@ -60,3 +60,5 @@ Route::get('/adminPage', [AdminController::class, 'index'])->name('adminPage');
 Route::get('/approveProduct/{id}', [AdminController::class, 'approveProduct'])->name('approveProduct');
 
 Route::get('/denyProduct/{id}', [AdminController::class, 'denyProduct'])->name('denyProduct');
+
+Route::post('/send-order-confirmation', [OrderController::class, 'sendOrderConfirmation']);

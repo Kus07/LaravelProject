@@ -7,17 +7,17 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\SoldProduct;
 use Illuminate\Http\Request;
+use App\Mail\OrderConfirmation;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
     public function addOrder(Request $request)
     {
-        // Check if the user is authenticated
         if (!$request->session()->has('user_id')) {
             return redirect()->route('login')->with('error', 'Please log in to place an order.');
         }
 
-        // Validate the form data
         $validatedData = $request->validate([
             'name' => 'required',
             'street' => 'required',
@@ -76,6 +76,25 @@ class OrderController extends Controller
         $request->session()->forget('cart_total_count');
         $request->session()->forget('cart_total_price');
 
+        // Send the order confirmation email
+        $data = [
+            'orderId' => $order->id, // Ensure this matches the variable name in the template
+            'name' => $order->name,
+            'street' => $order->street,
+            'city' => $order->city,
+            'phone' => $order->phone,
+            'email' => $order->email,
+            'paymentMode' => $order->paymentMode,
+            'totalPrice' => $order->totalPrice,
+        ];
+
+        Mail::send('Pages.order-confirmation', $data, function($message) use ($data) {
+            $message->to($data['email'])
+                    ->subject('Order Confirmation');
+        });
+
         return redirect()->route('cart')->with('success', 'Your order has been placed successfully!');
     }
+
+
 }
